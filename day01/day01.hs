@@ -19,8 +19,6 @@ similarities (x:xs) l2 acc
 
 solvePt2 :: [[Int]] -> Int
 solvePt2 [l1,l2] = similarities l1 l2 0
-  where
-    list = nub l1
 
 main :: IO()
 main = do
