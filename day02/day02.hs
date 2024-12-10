@@ -1,5 +1,4 @@
 import Text.Printf
-import Data.List 
 
 parseInput :: [Char] -> [[Int]]
 parseInput = map (map read . words) . lines
