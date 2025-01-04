@@ -1,6 +1,6 @@
 import Text.Printf
 import Data.List
--- import Data.Map
+import Data.Maybe
 
 countWords :: String -> Int
 countWords "" = 0
@@ -16,12 +16,20 @@ countVertical :: [String] -> Int
 countVertical s = sum $ map countWords $ transpose s
 
 countDiagonals :: [String] -> Int
-countDiagonals = undefined
+countDiagonals s = diag + reverseDiag
+    where
+        diag = sum $ map countWords $ diagonals s
+        reverseDiag = sum $ map countWords $ diagonals (map reverse s)
+
+diagonals :: [String] -> [String]
+diagonals s =
+    map catMaybes . transpose $
+      [replicate i Nothing ++ map Just row | (row, i) <- zip s [0..] ]
 
 solvePt1 :: [String] -> Int
 solvePt1 s = res 
     where 
-        res = countHorizontal s + countVertical s
+        res = countHorizontal s + countVertical s + countDiagonals s 
 
 main :: IO()
 main = do
